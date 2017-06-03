@@ -1,0 +1,30 @@
+{
+  "name": "tweendeck",
+  "title": "TweenDeck",
+  "version": "1.0.0",
+  "description": "Next level animated slide decks, powered by Greensock",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnpolacek/tweendeck.git"
+  },
+  "keywords": [
+    "animation",
+    "slides",
+    "webslides",
+    "presentation"
+  ],
+  "devDependencies": {
+    "onchange": "latest",
+    "node-sass": "latest"
+  },
+  "scripts": {
+    "build": "node-sass css/sass/base.scss css/stylesheets/base.css --output-style expanded && node-sass css/sass/utilities.scss css/stylesheets/utilities.css --output-style compact && node-sass css/sass/components.scss css/stylesheets/components.css --output-style expanded && node-sass css/sass/style.scss css/style.min.css --output-style compressed --source-map true",
+    "watch": "onchange 'css/sass/**/*' -- npm run build"
+  },
+  "author": {
+    "name": "John Polacek",
+    "url": "http://www.johnpolacek.com"
+  },
+  "license": "MIT",
+  "homepage": "http://johnpolacek.github.io/tweendeck/"
+}

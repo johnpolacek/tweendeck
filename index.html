@@ -1,0 +1,611 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TweenDeck</title>
+        <meta name="description" content="Next level animated slide decks, powered by Greensock">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="shortcut icon" href="favicon.ico">
+    </head>
+    <body class="expand-v wide crop-x">
+        <div class="github-fork-ribbon-wrapper right s-hidden">
+            <div class="github-fork-ribbon">
+                <a href="https://github.com/johnpolacek/tweendeck/">Fork me on GitHub</a>
+            </div>
+        </div>
+		<div class="slide grid-align-center">
+            <div data-tween="outro:scaleOut:.5" class="box-center text-center pad-3">
+                <h1 data-tween="intro:spinIn:1:.5" class="text-light text-green">TweenDeck</h1>
+                <h5 data-tween="intro:scaleIn:.5,intro:fadeIn:.5:1.5">Next level animation for web presentations</h5>
+                <p data-tween="intro:slideInLeft:.5:1.5" class="pad-1 text-grey">Powered by <a class="text-green" href="http://greensock.com">Greensock</a></p>
+                <p data-tween="intro:slideInRight:.5:1.75" class="pad-1 text-grey">Built by <a href="http://johnpolacek.com">John Polacek</a></p>
+                <p class="tweendeck-hide"><a href="https://twitter.com/johnpolacek" class="btn btn-large bgr-blue-lt text-14">Follow @johnpolacek</a></p>
+                <div data-tween="intro:slideInUp:.5:2" class="marg-3-top hide tweendeck-show">
+                    <p class="marg-3-top tweendeck-show">Key Press or Swipe</p>
+                    <div>
+                    	<span data-tween="intro:swingIn:2:2.5" class="inlineblock pad-2-sides pad-1-vert text-36 marg-2-sides shadow rounded">&#8592;</span>
+                    	<span data-tween="intro:swingIn:2:3" class="inlineblock pad-2-sides pad-1-vert text-36 marg-2-sides shadow rounded">&#8594;</span>
+                    </div>
+                </div>
+                <div class="pad-3-top marg-3-top tweendeck-hide">
+                    <button onclick="enterPresentationMode()" class="pad-4 text-36 uppercase pad-3 text-light pulse">Enter Presentation Mode</button>
+                    <p class="marg-3-top text-grey"><span class="italic">...or just scroll</span><br/><span class="text-24">&#8595;</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center">
+            <h2 data-tween="intro:elasticInScale:.5,outro:slideOutUp:.5" class="wide text-center pad-3-vert marg-3-vert text-light text-green">Building a TweenDeck</h2>
+        </div>
+
+        <div class="slide grid-align-top">
+            <div class="wide text-center marg-3-bottom pad-3-bottom">
+                <div data-tween="intro:slideInUp:.5,intro:fadeIn:.25:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="box-320 box-center marg-3-vert pad-3-vert">
+                    <h3 class="pad-2-vert text-36 border-b text-light">Step One</h3>
+                    <h3 class="pad-2-vert text-36">Design Your Deck</h3>
+                </div>
+                <div class="grid grid-align-center grid-align-middle box-960 box-center pad-3-sides">
+                    <div data-tween="intro:slideInLeft:.5:.5,0:slideOutLeft:.5,0:hide:.5" class="col-6 m-col-12 s-col-12">
+                        <p class="wide">Divide your content up into slides. <br/>Use <code>&lt;section&gt;</code> or <code>&lt;div class="slide"&gt;</code></p>
+                    </div>
+                    <div data-tween="intro:slideInRight:.5:.5,0:slideOutRight:.5,0:hide:.5" class="col-6 m-col-12 s-col-12">
+                        <pre class="wide pad-2-vert pad-3-sides bgr-grey text-left text-14"><code>&lt;div class="slide"&gt;
+  &lt;h1&gt;Title goes here&lt;/h1&gt;
+  &lt;h1&gt;Subtitle goes here&lt;/h1&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;h1&gt;Another Title&lt;/h1&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Bullet Point 1&lt;/li&gt;
+    &lt;li&gt;Bullet Point 2&lt;/li&gt;
+    &lt;li&gt;Bullet Point 3&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>                    
+                    </div>            
+                </div>
+                <div class="box-800 box-center pad-3-sides">
+                    <p data-tween="intro:hide,0:show:.5,0:scaleIn:.5:.5,1:fadeOut:.25,1:hide:.25" class="pad-3 text-24 marg-3-vert">In &lsquo;Presentation Mode&rsquo;, slides will be cropped to fit the browser window. Don&rsquo;t worry about that yet. Design your content to look good as is, prior to adding animation.</p>
+                    <div class="box-640 box-center pad-3" data-tween="intro:hide,1:show:.25,1:slideInUp:1:.25,1:spinIn:1:.25,2:slideOutDown:.5,2:fadeOut:.5,2:hide:.5">
+	                    <h5 class="text-36">Tip #1</h5>
+                        <p class="text-24 text-reg">Use <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a> or <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">CSS Grid Layout</a></p>
+	                    <p>I use <a href="https://github.com/johnpolacek/simple-flexgrid">Simple Flexgrid</a>, but feel free to use any grid system you prefer.</p>
+                    </div>
+                    <div class="box-640 box-center pad-3" data-tween="intro:hide,2:show:.5,2:slideInUp:1:.5,2:spinIn:1:.5,3:slideOutDown:.5,3:fadeOut:.5,3:hide:.5">
+                        <h5 class="text-36">Tip #2</h5>
+                        <p class="text-24 text-reg">Use a <a href="http://tachyons.io/docs/typography/scale/">rem-based type scale</a> with media queries to adjust your text for different screen sizes.</p>
+                    </div>
+                    <div class="box-640 box-center pad-3" data-tween="intro:hide,3:show:.5,3:slideInUp:1:.5,3:spinIn:1:.5,outro:slideOutDown:.5,outro:fadeOut:.5">
+                        <h5 class="text-36">Tip #3</h5>
+                        <p class="text-24 text-reg">Use the <code>.tween-active</code> class as a hook to change styling when in presentation mode.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-top">
+            <div class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:slideInUp:.5,intro:fadeIn:.25:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="box-480 box-center marg-3-bottom pad-3-bottom">
+                    <h3 class="pad-2-vert text-36 border-b text-light">Step Two</h3>
+                    <h3 class="pad-2-vert text-36">Initialize TweenDeck</h3>
+                </div>
+                
+                <div data-tween="intro:fadeIn:1:.5,0:fadeOut:.25,0:hide:.25" class="box-800 box-center marg-3-bottom pad-3-bottom pad-2-sides">
+                    <p class="box-640 box-center pad-3-sides">TweenDeck&rsquo;s only dependency is <a class="text-green" href="https://greensock.com/">Greensock</a> which allows us to animate our slides in just about any way we can imagine.</p>
+                    <pre class="wide pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;!--CDN link for TweenMax--&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"&gt;&lt;/script&gt;
+</code></pre>
+                    <p class="text-14 italic pad-3-sides marg-3-sides">Note: Greensock has plugins like <a href="https://greensock.com/SplitText">SplitText</a> and <a href="https://greensock.com/morphSVG">MorphSVG</a> that are exclusive to Greensock members. For truly next-level animations, I highly recommend becoming joining <a href="https://greensock.com/club/">Club Greensock</a>.</p>
+                </div>
+                <div data-tween="0:fadeIn:1:.25,1:fadeOut:.25,1:hide:.25" class="box-800 box-center marg-3-bottom pad-3-bottom pad-2-sides">
+                    <p class="box-480 box-center pad-3-sides">Include tweendeck.js then add a button with a click event that calls <code>TweenDeck.init()</code>.</p>
+                    <pre class="box-640 box-center pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;button onclick="enterPresentationMode()"&gt;Enter Presentation Mode&lt;/button&gt;</code></pre>
+                    <pre class="box-640 box-center pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;script&gt;
+  function enterPresentationMode() {
+    TweenDeck.init(document.querySelectorAll('.slide'));
+  }
+&lt;/script&gt;</code></pre>
+                </div>
+                <div data-tween="1:fadeIn:1:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="box-800 box-center pad-3-sides">
+                    <p class="pad-1">Open your presentation in a browser, then click Enter Presentation Mode.</p>
+                    <p>Navigate through the slides with left/right arrow keys (or swipe on touch devices).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-top">
+            <div class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:slideInUp:.5,intro:fadeIn:.25:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="box-480 box-center pad-3-bottom">
+                    <h3 class="pad-2-vert text-36 border-b text-light">Step Three</h3>
+                    <h3 class="pad-2-vert text-36">Create animations</h3>
+                </div>
+                <div class="marg-3-bottom" data-tween="intro:fadeIn:1:.5,0:fadeOut:.25,0:hide:.25">
+	                <p class="box-480 box-center pad-3-sides">TweenDeck doesn&rsquo;t have any built-in animation. It&rsquo;s up to us to create animations for our slides.</p>
+	                <p class="box-640 box-center pad-3-sides">To do so, we create an object with animation functions which is passed to TweenDeck through its <code>init()</code> function.</p>
+                </div>
+                <div class="marg-3-bottom pad-2-sides" data-tween="0:fadeIn:1:.5:.25,1:fadeOut:.25,1:hide:.25">
+                	<p class="box-640 box-center pad-3-sides">For&nbsp;example, to create simple fade in and fade out animations:</p>
+                	<pre class="box-720 box-center pad-2-vert pad-3-sides marg-2-vert bgr-grey text-left text-14"><code>var tweens = {
+  fadeIn: function(el, dur, delay) {
+    return TweenMax.from(el, dur, {immediateRender:true,opacity:0, delay:delay});
+  },
+  fadeOut: function(el, dur, delay) {
+    return TweenMax.to(el, dur, {opacity:0, delay:delay});
+  }
+};
+
+function enterPresentationMode() {
+    TweenDeck.init(document.querySelectorAll('section'), tweens);
+}</code></pre>
+				</div>
+                <div class="marg-3-bottom" data-tween="1:fadeIn:1:.5:.25,outro:fadeOut:.5,outro:slideOutDown:.5">
+                	<p class="box-480 box-center">Animation functions should accept 3 params: <br/>target element, duration and delay.</p>
+                	<p class="text-14 italic"><strong>Not familiar with Greensock?</strong> Check out <a class="text-green" href="https://greensock.com/get-started-js">Getting Started with GSAP</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-top">
+            <div class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:slideInUp:.5,intro:fadeIn:.25:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="box-480 box-center marg-3-bottom pad-3-bottom">
+                    <h3 class="pad-2-vert text-36 border-b text-light">Step Four</h3>
+                    <h3 class="pad-2-vert text-36">Add slide transitions</h3>
+                </div>
+                <div data-tween="intro:fadeIn:1:.5,0:fadeOut:.25,0:hide:.25" class="pad-3-bottom marg-3-bottom pad-3-sides">
+                    <p>To animate elements in your slides, use data-tween attributes with the following structure:</p>
+                    <pre><code>data-tween="[timing]:[animation type]:[duration]:[delay]"</code></pre>
+                </div>
+                <div data-tween="0:fadeIn:1:.5:.25,1:fadeOut:.25,1:hide:.25" class="pad-3-bottom marg-3-bottom pad-3-sides">
+                    <p>For example, to fade in a headline, slide in bullet points one at a time, then fade out the slide:</p>
+                    <pre class="box-720 box-center pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;div class="slide"&gt;
+    &lt;div data-tween="outro:fadeOut:.5"&gt;
+        &lt;h2 data-tween="intro:fadeIn:1"&gt;My Headline&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li data-tween="0:slideInLeft:.5"&gt;Bullet Point 1&lt;/li&gt;
+            &lt;li data-tween="1:slideInLeft:.5"&gt;Bullet Point 2&lt;/li&gt;
+            &lt;li data-tween="2:slideInLeft:.5"&gt;Bullet Point 3&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <div data-tween="1:fadeIn:1:.5:.25,2:fadeOut:.25,2:hide:.25" class="pad-3-bottom marg-3-bottom pad-3-sides">
+                    <p>To animate bullet points in a one transition, but staggered, use the delay property:</p>
+                    <pre class="box-720 box-center pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;div class="slide"&gt;
+    &lt;div data-tween="outro:fadeOut:.5"&gt;
+        &lt;h2 data-tween="intro:fadeIn:1"&gt;My Headline&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li data-tween="0:slideInLeft:.5"&gt;Bullet Point 1&lt;/li&gt;
+            &lt;li data-tween="0:slideInLeft:.5:.5"&gt;Bullet Point 2&lt;/li&gt;
+            &lt;li data-tween="0:slideInLeft:.5:1"&gt;Bullet Point 3&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <div data-tween="2:fadeIn:1:.5:.25,outro:fadeOut:.5,outro:slideOutDown:.5" class="pad-3-bottom marg-3-bottom pad-3-sides">
+                    <p>Elements can have multiple animations by separating with a comma:</p>
+                    <pre class="box-720 box-center pad-2-vert pad-3-sides marg-2-bottom bgr-grey text-left text-14"><code>&lt;div class="slide"&gt;
+    &lt;h2 data-tween="intro:fadeIn:1,outro:fadeOut"&gt;My Headline&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li data-tween="0:slideInLeft:.5,outro:slideOutLeft"&gt;Bullet Point 1&lt;/li&gt;
+        &lt;li data-tween="0:slideInLeft:.5:.5,outro:slideOutRight"&gt;Bullet Point 2&lt;/li&gt;
+        &lt;li data-tween="0:slideInLeft:.5:1,outro:slideOutDown"&gt;Bullet Point 3&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-top">
+            <div class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:slideInUp:.5,intro:fadeIn:.25:.25" class="box-480 box-center pad-3-sides">
+                    <h3 class="pad-2-vert text-36 border-b text-light">Step Five</h3>
+                    <h3 class="pad-2-vert text-36 marg-3-bottom">Get creative</h3>
+                    <p><span class="inlineblock" data-tween="intro:zoomIn:.5:1">Amazing</span> <span class="inlineblock" data-tween="intro:zoomIn:1:1.5">things</span><span data-tween="intro:fadeIn:1:2.5"> are possible with modern web animation. </span><span data-tween="intro:fadeIn:1:3">Check out the links below for some great examples.</span></p>
+                </div>
+                <div class="grid box-1100 box-center marg-3-bottom pad-3-bottom pad-3-sides">
+                    <div class="col-3 m-col-6 s-col-12">
+                        <div data-tween="intro:tossInUp:.5:4" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">Greensock Showcase</h4>
+                                <p><a href="https://greensock.com/examples-showcases">Get Inspired</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 m-col-6 s-col-12">
+                        <div data-tween="intro:tossInUp:.5:4.125" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">Greensock on Codepen</h4>
+                                <p><a href="http://codepen.io/GreenSock/">Dive Into Code</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 m-col-6 s-col-12">
+                        <div data-tween="intro:tossInUp:.5:4.25" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">Award-Winning Animation</h4>
+                                <p><a href="https://www.awwwards.com/websites/animation/">See Awwward Winners</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 m-col-6 s-col-12">
+                        <div data-tween="intro:tossInUp:.5:4.375" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">Web Animation Weekly</h4>
+                                <p><a href="http://webanimationweekly.com/">Sign Up</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center">
+            <h2 data-tween="intro:elasticInScale:.5,outro:slideOutUp:.5" class="wide text-center pad-3-bottom marg-3-bottom text-light text-green">Examples</h2>
+        </div>
+
+        <div class="slide grid-align-center">
+            <div data-tween="outro:fadeOut:.5" class="wide text-center marg-3-vert pad-3-vert">
+                <div class="pad-3-bottom">
+                    <h3 class="pad-0 marg-0" data-tween="intro:slideInDown:.5">slideInDown</h3>
+                    <code data-tween="intro:fadeIn:.25:.5">data-tween="intro:slideInDown:.5"</code><br/>
+                    <code data-tween="2:fadeIn:.5:.5">data-tween="outro:fadeOut:.5"</code>
+                </div>
+                <div data-tween="0:slideInUp:.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0">slideInUp</h5>
+                    <code>data-tween="0:slideInUp:.5"</code>
+                </div>
+                <div data-tween="1:slideInLeft:.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0">slideInLeft</h5>
+                    <code>data-tween="1:slideInLeft:.5"</code>
+                </div>
+                <div data-tween="2:slideInRight:.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0">slideInRight</h5>
+                    <code>data-tween="2:slideInRight:.5"</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center">
+            <div data-tween="outro:fadeOut:.5" class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:bounceInDown:.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0">bounceInDown</h5>
+                    <h6 class="text-reg text-grey text-18 italic">(1st in sequence)</h6>
+                    <code>data-tween="intro:bounceInDown:.5"</code>
+                </div>
+                <div data-tween="intro:bounceInLeft:.5:.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0 lineheight-1">bounceInLeft</h5>
+                    <h6 class="text-reg text-grey text-18 italic">(.5s delay)</h6>
+                    <code>data-tween="intro:bounceInLeft:.5:.5"</code>
+                </div>
+                <div data-tween="intro:bounceInRight:.5:1" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0 lineheight-1">bounceInRight</h5>
+                    <h6 class="text-reg text-grey text-18 italic">(1s delay)</h6>
+                    <code>data-tween="intro:bounceInRight:.5:1"</code>
+                </div>
+                <div data-tween="intro:bounceInUp:.5:1.5" class="pad-3-bottom">
+                    <h5 class="pad-0 marg-0 lineheight-1">bounceInUp</h5>
+                    <h6 class="text-reg text-grey text-18 italic">(1.5s delay)</h6>
+                    <code>data-tween="intro:bounceInUp:.5:1.5"</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center pad-3-vert marg-3-vert">
+            <div data-tween="intro:scaleIn:1, outro:scaleOut:1" class="wide text-center marg-3-vert pad-3-vert">
+                <h3 class="pad-0 marg-0">scaleIn</h3>
+                <code>data-tween="intro:scaleIn:1, outro:scaleOut:1"</code>
+            </div>
+            <div data-tween="intro:zoomIn:1:1, outro:zoomOut:1" class="wide text-center marg-3-vert pad-3-vert">
+                <h3 class="pad-0 marg-0">zoomIn</h3>
+                <code>data-tween="intro:zoomIn:1:1, outro:zoomOut:1"</code>
+            </div>
+        </div>
+
+        <div class="slide row-12 col-12 grid-align-center">
+            <div data-tween="outro:fadeOut:.5" class="row-5 col-12 text-center pad-3-vert">
+                <div data-tween="intro:fadeInUp:.5" class="wide pad-3-vert">
+                    <h3 class="wide pad-0 marg-0" data-tween="intro:fadeInUp:.5, outro:fadeOut:.5">Animate in Sequence</h3>
+                    <pre class="wide"><code>data-tween="intro:fadeInUp:.5, outro:fadeOut:.5"</code></pre>
+                    <p class="wide">Use show and hide at the beginning and end of animations for layout control.</p>
+                </div>
+            </div>
+            <div class="row-7 col-12">
+                <div class="box-800 box-center marg-3" data-tween="0:rotateIn:.5, 1:rotateOut:.5, 1:hide:.5" class="wide marg-2">
+                    <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                        <h4 class="text-24 text-light border-b marg-3-bottom">rotateIn #1</h4>
+                        <pre class="marg-3-bottom"><code>data-tween="0:rotateIn:.5, 1:rotateOut:.5, 1:hide:.5"</code></pre>
+                        <p>Rotate in, then on the next step rotateOut then hide.</p>
+                    </div>
+                </div>
+                <div class="box-800 box-center marg-3" data-tween="intro:hide, 1:show:.5, 1:rotateIn:.5:.5, 2:rotateOut:.5, 2:hide:.5" class="wide marg-2">
+                    <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                        <h4 class="text-24 text-light border-b marg-3-bottom">rotateIn #2</h4>
+                        <pre class="marg-3-bottom"><code>data-tween="intro:hide, 1:show:.5, 1:rotateIn:.5:.5, 2:rotateOut:.5, 2:hide:.5"</code></pre>
+                        <p class="box-480 box-center">Initially hide, then show and rotateIn at the first step after previous element finishes rotateOut (at .5s)</p>
+                        <p>On the next step rotateOut then hide.</p>
+                    </div>
+                </div>
+                <div class="box-800 box-center marg-3" data-tween="intro:hide,2:show:.5,2:rotateIn:.5:.5,3:rotateOut:.5,3:hide:.5" class="wide marg-2">
+                    <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                        <h4 class="text-24 text-light border-b marg-3-bottom">rotateIn #3</h4>
+                        <pre class="marg-3-bottom"><code>data-tween="intro:hide, 2:show:.5, 2:rotateIn:.5:.5, 3:rotateOut:.5, 3:hide:.5"</code></pre>
+                        <p>Repeat the sequence for as many steps as necessary.</p>
+                    </div>
+                </div>
+                <div class="box-800 box-center marg-3" data-tween="intro:hide,3:show:.5,3:rotateIn:.5:.5,outro:rotateOut:.5" class="wide marg-2">
+                    <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                        <h4 class="text-24 text-light border-b marg-3-bottom">rotateIn #4</h4>
+                        <pre class="marg-3-bottom"><code>data-tween="intro:hide, 3:show:.5, 3:rotateIn:.5:.5, outro:rotateOut:.5"</code></pre>
+                        <p>The last step, rotateOut at the outro.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center">
+            <div data-tween="outro:fadeOut:.5" class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:fadeInUp:.5" class="pad-3-bottom">
+                    <h3 class="pad-0 marg-0" data-tween="intro:fadeInUp:.5, outro:fadeOut:.5">Animate at Once</h3>
+                    <code>data-tween="intro:fadeInUp:.5, outro:fadeOut:.5"</code><br/>
+                    <p class="marg-3-top">Use delays to align animation sequences.</p>
+                </div>
+                <div class="grid box-1200 box-center marg-3-bottom pad-3-bottom pad-3-sides">
+                    <div class="col-4 m-col-6 s-col-12 pad-2-sides">
+                        <div data-tween="intro:tossInUp:.5:.5, outro:fallOut:.5" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">tossInUp</h4>
+                                <pre><code>data-tween="
+intro:tossInUp:.5:.5,
+outro:fallOut:.5"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 m-col-6 s-col-12 pad-2-sides">
+                        <div data-tween="intro:tossInUp:.5:.75, outro:fallOut:.5" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">tossInUp</h4>
+                                <pre><code>data-tween="
+intro:tossInUp:.5:.75,
+outro:fallOut:.5"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 m-col-6 s-col-12 pad-2-sides">
+                        <div data-tween="intro:tossInUp:.5:1, outro:fallOut:.5" class="wide marg-2">
+                            <div class="rounded shadow pad-3-vert pad-2-sides text-center">
+                                <h4 class="text-24 text-light border-b marg-3-bottom">tossInUp</h4>
+                                <pre><code>data-tween="
+intro:tossInUp:.5:1,
+outro:fallOut:.5"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide full-frame grid grid-align-center bgr-yellow tweendeck-bgr-none">
+            <div data-tween="intro:backgroundColor:.5:0:yellow,intro:fadeIn:.5,outro:fadeOut:.5" class="pad-3-vert wide text-center">
+                <h3 class="pad-3-vert marg-3-top text-light text-80">Background Color #1</h3>
+                <pre class="pad-3-bottom marg-3-bottom"><code>intro:backgroundColor:.5:0:yellow</code></pre>
+                <p>Background color tweens are applied to document body.</p>
+            </div>
+        </div>
+
+        <div class="slide full-frame grid grid-align-center bgr-green tweendeck-bgr-none">
+            <div data-tween="intro:backgroundColor:.5:0:#9fc74d, outro:backgroundColor:.5:0:#000, intro:fadeIn:.5, outro:fadeOut:.5" class="pad-3-vert wide text-center text-white">
+                <h3 class="pad-3-vert marg-3-top text-light text-80">Background Color #2</h3>
+                <pre class="pad-3-bottom marg-3-bottom"><code>intro:backgroundColor:.5:0:#9fc74d, outro:backgroundColor:.5:0:none</code></pre>
+                <p>Background color tweens are applied to document body.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div data-tween="intro:fadeIn:1,0:slideOutRight:1,outro:backgroundColor:.5:0:white" class="tweendeck-stack full-frame relative grid grid-align-center">
+                <div class="absolute-tl full-frame">
+                    <img src="./images/neal-kharawala-154393.jpg" alt="Chicago Theater at night" class="img-cover">
+                </div>
+                <div class="front text-white text-center">
+                    <h3 class="pad-3-vert marg-3-top text-light text-80 text-shadow">Background Image</h3>
+                    <p class="text-shadow text-light italic text-14">Source: <a class="text-white" href="https://unsplash.com/@nealk">Neal Kharawala on Unsplash</a></p>
+                </div>
+            </div>
+            <div data-tween="0:slideInLeft:1,1:slideOutUp:1" class="tweendeck-stack full-frame relative grid grid-align-center">
+                <div class="absolute-tl full-frame">
+                    <img src="./images/kevin-rajaram-228616.jpg" alt="Chicago Landscape" class="img-cover">
+                </div>
+                <div class="front text-white text-center">
+                    <h3 class="pad-3-vert marg-3-top text-light text-80 text-shadow">Background Image</h3>
+                    <p class="text-shadow text-light italic text-14">Source: <a class="text-white" href="https://unsplash.com/@kevinrajaram">Kevin Rajaram on Unsplash</a></p>
+                </div>
+            </div>
+            <div data-tween="1:slideInUp:1,2:slideOutDown:1" class="tweendeck-stack full-frame relative grid grid-align-center">
+                <div class="absolute-tl full-frame">
+                    <img src="./images/sawyer-bengtson-256260.jpg" alt="Cloud Gate Sculpture at Millenium Park in Chicago" class="img-cover">
+                </div>
+                <div class="front text-white text-center">
+                    <h3 class="pad-3-vert marg-3-top text-light text-80 text-shadow">Background Image</h3>
+                    <p class="text-shadow text-light italic text-14">Source: <a class="text-white" href="https://unsplash.com/@sawyerbengtson">Sawyer Bengtson on Unsplash</a></p>
+                </div>
+            </div>
+            <div data-tween="2:slideInDown:1,outro:fadeOut:1" class="tweendeck-stack full-frame relative grid grid-align-center">
+                <div class="absolute-tl full-frame">
+                    <img src="./images/roman-arkhipov-123612.jpg" alt="Chicago River at night" class="img-cover">
+                </div>
+                <div class="front text-white text-center">
+                    <h3 class="pad-3-vert marg-3-top text-light text-80 text-shadow">Background Image</h3>
+                    <p class="text-shadow text-light italic text-14">Source: <a class="text-white" href="https://unsplash.com/@lomogee">Roman Arkhipov on Unsplash</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide grid-align-center">
+            <div data-tween="outro:fadeOut:.5" class="wide text-center marg-3-vert pad-3-vert">
+                <div data-tween="intro:fadeInUp:.5:.25">
+                    <h4 class="pad-0 marg-0" data-tween="intro:fadeInUp:.5, outro:fadeOut:.5">Tween Params</h4>
+                    <p>Add params to your tween functions for more customization. For example...</p>
+                </div>
+                <div data-tween="intro:scaleIn:.5:.5">
+                    <div data-tween="0:cssTo:.5:0:color:red, 1:cssTo:.5:0:color:blue, 2:cssTo:.5:0:color:#9fc74d" class="marg-3-top text-80 text-light">Tween Me!</div>
+                    <pre><code>data-tween="0:cssTo:.5:0:color:red, 1:cssTo:.5:0:color:blue, 2:cssTo:.5:0:color:#9fc74d"</code></pre>
+                    <h6 class="marg-3-top">cssTo</h6>
+                    <pre class="box-720 box-center wide pad-2-vert pad-3-sides bgr-grey text-left text-14 marg-3-bottom"><code>cssTo: function(el, dur, delay, params) {
+    var cssProp = {};
+    cssProp[params[0]] = params[1];
+    return TweenMax.to(el, dur, {ease:Power4.easeOut, css:cssProp, delay:delay});
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!--CDN link for  TweenMax-->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+        
+        <script src="./js/tweendeck.js"></script>
+        
+        <script>
+            var tweens = {
+                hide: function(el, dur, delay) {
+                    if (typeof delay === 'undefined' || dur > delay) delay = dur;
+                    if (typeof delay === 'undefined') delay = 0;
+                    return TweenMax.to(el, 0, {display:'none', delay:delay});
+                },
+                show: function(el, dur, delay) {
+                    if (typeof delay === 'undefined' || dur > delay) delay = dur;
+                    if (typeof delay === 'undefined') delay = 0;
+                    return TweenMax.to(el, 0, {display:'block', delay:delay});
+                },
+                showFlex: function(el, dur, delay) {
+                    if (typeof delay === 'undefined' || dur > delay) delay = dur;
+                    return TweenMax.to(el, 0, {display:'flex', delay:delay});
+                },
+                fadeIn: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true,opacity:0, delay:delay});
+                },
+                fadeInUp: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true,opacity:0, y:100, ease:Power4.easeOut, delay:delay});
+                },
+                fadeOut: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {opacity:0, delay:delay});
+                },
+                slideInLeft: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Power4.easeOut, x:-window.innerWidth, delay:delay});
+                },
+                slideInRight: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Power4.easeOut, x:window.innerWidth, delay:delay});
+                },
+                slideInUp: function(el, dur, delay) {
+                    TweenMax.set(el,{y:window.innerHeight});
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, y:0, delay:delay});
+                },
+                slideInDown: function(el, dur, delay) {
+                    TweenMax.set(el,{y:-window.innerHeight});
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, y:0, delay:delay});
+                },
+                slideOutLeft: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, x:-window.innerWidth, delay:delay});
+                },
+                slideOutRight: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, x:window.innerWidth, delay:delay});
+                },
+                slideOutUp: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, y:window.innerHeight, delay:delay});
+                },
+                slideOutDown: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, y:-window.innerHeight, delay:delay});
+                },
+                bounceInLeft: function(el, dur, delay) {
+                    TweenMax.set(el,{x:-200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Bounce.easeOut, x:0, opacity:1, delay:delay});
+                },
+                bounceInRight: function(el, dur, delay) {
+                    TweenMax.set(el,{x:200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Bounce.easeOut, x:0, opacity:1, delay:delay});
+                },
+                bounceInUp: function(el, dur, delay) {
+                    TweenMax.set(el,{y:200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Bounce.easeOut, y:0, opacity:1, delay:delay});
+                },
+                bounceInDown: function(el, dur, delay) {
+                    TweenMax.set(el,{y:-200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Bounce.easeOut, y:0, opacity:1, delay:delay});
+                },
+                elasticInUp: function(el, dur, delay) {
+                    TweenMax.set(el,{y:200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Elastic.easeOut, y:0, opacity:1, delay:delay});
+                },
+                elasticInDown: function(el, dur, delay) {
+                    TweenMax.set(el,{y:-200,opacity:0});
+                    return TweenMax.to(el, dur, {ease:Elastic.easeOut, y:0, opacity:1, delay:delay});
+                },
+                slideOutUp: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeIn, y:-window.innerHeight, delay:delay});
+                },
+                slideOutDown: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeIn, y:window.innerHeight, delay:delay});
+                },
+                spinIn: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, opacity:0, ease:Power4.easeOut, rotationY:-720, transformOrigin:"50% 50%", perspective:2000, delay:delay});
+                },
+                spinOut: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, opacity:0,rotationY:720, transformOrigin:"50% 50%", perspective:2000, delay:delay});
+                },
+                scaleIn: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Back.easeOut, scale:.01, delay:delay});
+                },
+                elasticInScale: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Elastic.easeOut, scale:.01, delay:delay});
+                },
+                scaleOut: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Back.easeIn, scale:.01, opacity:0, delay:delay});
+                },
+                zoomIn: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Power4.easeOut, opacity:0, scale:500, delay:delay});
+                },
+                zoomOut: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeIn, opacity:0, scale:500, delay:delay});
+                },
+                rotateIn: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Power4.easeOut, opacity:0, perspective:10, transformOrigin:"50% 50%", rotationZ:randomNumber(-20,20), rotationY:randomNumber(-60,60), rotationX:randomNumber(-30,30), delay:delay});
+                },
+                rotateOut: function(el, dur, delay) {
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, opacity:0, perspective:10, transformOrigin:"50% 50%", rotationZ:randomNumber(-20,20), rotationY:randomNumber(-60,60), rotationX:randomNumber(-30,30), delay:delay});
+                },
+                tossInUp: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {immediateRender:true, y:window.innerHeight, opacity:0, ease:Power4.easeInOut, x:randomNumber(-600,600), rotation:720, delay:delay});
+                },
+                fallOut: function(el, dur, delay) {
+                    return TweenMax.from(el, dur, {y:window.innerHeight, ease:Linear.none, rotation:randomNumber(-30,30), delay:delay});
+                },
+                swingIn: function(el, dur, delay) {
+                    var swingIn = new TimelineMax();
+                    swingIn.add(TweenMax.from(el, dur/10, {immediateRender:true, opacity:0, delay:delay}),0);
+                    swingIn.add(TweenMax.from(el, dur, {immediateRender:true, ease:Elastic.easeOut, rotationX:-90, transformOrigin:"50% 0%", perspective:4000, delay:delay}),0);
+                    return swingIn;
+                },
+                cssFrom: function(el, dur, delay, params) {
+                    var cssProp = {};
+                    cssProp[params[0]] = params[1];
+                    return TweenMax.from(el, dur, {immediateRender:true, ease:Power4.easeOut, css:cssProp, delay:delay});
+                },
+                cssTo: function(el, dur, delay, params) {
+                    var cssProp = {};
+                    cssProp[params[0]] = params[1];
+                    return TweenMax.to(el, dur, {ease:Power4.easeOut, css:cssProp, delay:delay});
+                }
+            }
+
+            function randomNumber(min, max){
+                return Math.floor(Math.random() * (1 + max - min) + min);
+            }
+
+            function enterPresentationMode() {
+                TweenDeck.init(document.querySelectorAll('.slide'), tweens);
+            }
+        </script>
+    </body>
+</html>
