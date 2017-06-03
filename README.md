@@ -1,8 +1,8 @@
 # TweenDeck
 
-Next level animation for web presentations
+Next level animation for web presentations.
 
-View the demo/docs at [johnpolacek.github.io/tweendeck](https://johnpolacek.github.io/tweendeck/)
+View the demo/docs at [johnpolacek.github.io/tweendeck](https://johnpolacek.github.io/tweendeck/).
 
 TweenDeck is powered by the [Greensock Animation Platform (GSAP)](https://greensock.com/) which is its only dependency.
 
