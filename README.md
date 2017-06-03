@@ -11,6 +11,7 @@ TweenDeck is powered by the [Greensock Animation Platform (GSAP)](https://greens
 <br>
 **TweenDeck Examples:**
 
-* [http://johnpolacek.com/rethinking/](http://johnpolacek.com/rethinking/)
-* [http://johnpolacek.com/introducing-tweendeck/](http://johnpolacek.com/introducing-tweendeck/)
+* [Introducing Tweendeck](http://johnpolacek.com/introducing-tweendeck/)
+* [Rethinking CSS](http://johnpolacek.com/rethinking/)
+
 
